@@ -1,0 +1,10 @@
+extends layout
+ 
+block content
+  h1= title
+  - var image_names = ['dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg', 'dog5.jpg'];
+  div.d-flex.flex-column
+  - for(var i = 0; i < 3; i++) {
+      - var randomIndex = Math.floor(Math.random() * 5);
+      img(src=`/images/${image_names[randomIndex]}`, width = 300, height = 300, alt = "image not loaded.")
+  - }

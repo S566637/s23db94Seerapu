@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div(class="container-fluid")
+    h1= title
+    - let results=[{breed:"Labrador",age:3,name:"Buddy"},{breed:"German Shepherd",age:2,name:"Max"},{breed:"dalmation",age:4,name:"puppy"}]
+    div(class="row")
+        each form,item in results
+            div(class="col-sm-2" onclick=`buy(${item})`) #{form.breed}
+            div(class="col-sm-2" onclick=`buy(${item})`) #{form.name}
+            div(class="col-sm-2" onclick=`buy(${item})`) #{form.age}
+
+    script.
+        function buy(itemNo)
+        {
+            alert(`You purchased Item ${itemNo+1}`)
+        }
