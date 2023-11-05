@@ -3,18 +3,29 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,{useNewUrlParser: true,useUnifiedTopology: true});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dogsRouter = require('./routes/dogs');
 var choose = require('./routes/choose');
 var boardRouter = require('./routes/board');
+var Costume = require("./models/costume");
+var resourceRouter = require("./routes/resource")
 
 var app = express();
+var db = mongoose.connection;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,6 +38,7 @@ app.use('/users', usersRouter);
 app.use('/dogs', dogsRouter)
 app.use('/choose', choose);
 app.use('/board',boardRouter);
+app.use('/resource',resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,6 +68,31 @@ app.use(function(err, req, res, next) {
       dogs: dogs,
     });
   });
+
+  async function recreateDB(){
+    // Delete everything
+    await Costume.deleteMany();
+    let instance1 = new Costume({costume_type:"ghost", size:'large', cost:15.4});
+    instance1.save().then(
+      doc=>{console.log("First object saved")}
+      ).catch(err=>{
+      console.error(err)
+      });
+let instance2 = new Costume({costume_type:"ghost", size:'smlal', cost:15.0});
+    instance2.save().then(
+        doc=>{console.log("second object saved")}
+        ).catch(err=>{
+        console.error(err)
+        }); 
+let instance3 = new Costume({costume_type:"ghost", size:'medium', cost:1.4});
+        instance3.save().then(
+          doc=>{console.log("Third object saved")}
+          ).catch(err=>{
+          console.error(err)
+          });             
+    }
+    let reseed = true;
+    if (reseed) {recreateDB();}
   
 
 
