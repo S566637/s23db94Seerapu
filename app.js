@@ -15,6 +15,7 @@ var choose = require('./routes/choose');
 var boardRouter = require('./routes/board');
 var Costume = require("./models/costume");
 var resourceRouter = require("./routes/resource")
+var costumeRouter = require("./routes/costume")
 
 var app = express();
 var db = mongoose.connection;
@@ -39,6 +40,8 @@ app.use('/dogs', dogsRouter)
 app.use('/choose', choose);
 app.use('/board',boardRouter);
 app.use('/resource',resourceRouter);
+app.use('/costumes',costumeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

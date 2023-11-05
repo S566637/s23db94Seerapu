@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    div(class="container-fluid")
+    h1= title
+    - let items= results
+    div(class="row")
+        each form,item in results
+            div(class="col-sm-2") #{form.costume_type}
+            div(class="col-sm-2") #{form.size}
+            div(class="col-sm-2") #{form.cost}
