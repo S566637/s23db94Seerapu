@@ -7,8 +7,9 @@ exports.dogs_list = async function(req, res) {
         const thedogs = await dogs.find();
         res.send(thedogs);
     } catch (err) {
-        res.status(500).send({ error: err.message });
+        res.status(500).send({ error: `Update for ID ${req.params.id} failed. Error: ${err.message}` });
     }
+    
 };
 
 // Controller function for handling GET request for one dog
