@@ -90,13 +90,14 @@ exports.dogs_delete = async function(req, res) {
 // Update a dog
 // Handle Dog update form on PUT.
 // Handle Dog update form on PUT.
-exports.dogs_update_put = async function(req, res) {
-    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`);
-    try {
-        let toUpdate = await Dogs.findById(req.params.id);
+// Import the Dogs model
 
-        // Add this console log statement to check the retrieved dog
-        console.log('Dog to update:', toUpdate);
+// Handle Dog update form on PUT.
+exports.dogs_update_put = async function(req, res) {
+    console.log(`Update on ID ${req.params.id} with body ${JSON.stringify(req.body)}`);
+    try {
+        // Find the dog by ID
+        let toUpdate = await Dogs.findById(req.params.id);
 
         // Do updates of properties
         if (req.body.dogs_type) toUpdate.dogs_type = req.body.dogs_type;
@@ -110,13 +111,16 @@ exports.dogs_update_put = async function(req, res) {
             toUpdate.sale = false;
         }
 
+        // Save the updated dog
         let result = await toUpdate.save();
         console.log("Success " + result);
         res.send(result);
     } catch (err) {
-        res.status(500).send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+        // Handle errors
+        res.status(500).send(`{"error": ${err}: Update for ID ${req.params.id} failed`);
     }
 };
+
 
 
   
