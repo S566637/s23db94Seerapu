@@ -57,7 +57,7 @@ res.send('NOT IMPLEMENTED: dogs update PUT' + req.params.id);
 exports.dogs_view_all_Page = async function(req, res) {
     try{
     thedogs = await dogs.find();
-    res.render('dogs', { title: 'Costume Search Results', results: thedogs });
+    res.render('dogs', { title: 'dogs Search Results', results: thedogs });
     }
     catch(err){
     res.status(500);
