@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 var dogs = require('../models/dogs');
 // List of all dogs
 // exports.dogs_list = function(req, res) {
