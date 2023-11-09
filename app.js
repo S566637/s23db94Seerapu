@@ -11,11 +11,10 @@ mongoose.connect(connectionString,{useNewUrlParser: true,useUnifiedTopology: tru
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dogsRouter = require('./routes/dogs');
-var choose = require('./routes/choose');
+var chooseRouter = require('./routes/choose');
 var boardRouter = require('./routes/board');
-var Costume = require("./models/costume");
-var resourceRouter = require("./routes/resource")
-var costumeRouter = require("./routes/costume")
+var dogs = require("./models/dogs");
+var resourceRouter = require("./routes/resource");
 
 var app = express();
 var db = mongoose.connection;
@@ -40,7 +39,6 @@ app.use('/dogs', dogsRouter)
 app.use('/choose', choose);
 app.use('/board',boardRouter);
 app.use('/resource',resourceRouter);
-app.use('/costumes',costumeRouter);
 
 
 // catch 404 and forward to error handler
@@ -74,20 +72,20 @@ app.use(function(err, req, res, next) {
 
   async function recreateDB(){
     // Delete everything
-    await Costume.deleteMany();
-    let instance1 = new Costume({costume_type:"ghost", size:'large', cost:15.4});
+    await dogs.deleteMany();
+    let instance1 = new dogs({dogs_type:"ghost", size:'large', cost:15.4});
     instance1.save().then(
       doc=>{console.log("First object saved")}
       ).catch(err=>{
       console.error(err)
       });
-let instance2 = new Costume({costume_type:"ghost", size:'smlal', cost:15.0});
+let instance2 = new dogs({dogs_type:"ghost", size:'smlal', cost:15.0});
     instance2.save().then(
         doc=>{console.log("second object saved")}
         ).catch(err=>{
         console.error(err)
         }); 
-let instance3 = new Costume({costume_type:"ghost", size:'medium', cost:1.4});
+let instance3 = new dogs({dogs_type:"ghost", size:'medium', cost:1.4});
         instance3.save().then(
           doc=>{console.log("Third object saved")}
           ).catch(err=>{
