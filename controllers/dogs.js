@@ -68,32 +68,34 @@ exports.dogs_delete = async function(req, res) {
 
 // Handle Costume update form on PUT
 // Handle Dog update form on PUT.
+// Handle Dog update form on PUT
 exports.dogs_update_put = async function (req, res) {
     console.log(`Update on ID ${req.params.id} with body ${JSON.stringify(req.body)}`);
     try {
-      // Find the dog by ID and update its properties
-      let updatedDog = await Dogs.findByIdAndUpdate(
-        req.params.id,
-        {
-          dogs_type: req.body.dogs_type,
-          size: req.body.size,
-          cost: req.body.cost,
-          sale: req.body.checkboxsale === 'true', // Assuming checkboxsale is a string 'true' or 'false'
-        },
-        { new: true } // This option ensures that the updated document is returned
-      );
-  
-      if (!updatedDog) {
-        return res.status(404).json({ message: `Dog with ID ${req.params.id} not found` });
-      }
-  
-      // Send the updated dog document in the response
-      res.status(200).json(updatedDog);
+        // Find the dog by ID and update its properties
+        let updatedDog = await dogs.findByIdAndUpdate(
+            req.params.id,
+            {
+                dogs_type: req.body.dogs_type,
+                size: req.body.size,
+                cost: req.body.cost,
+                sale: req.body.checkboxsale, // Assuming checkboxsale is a boolean
+            },
+            { new: true } // This option ensures that the updated document is returned
+        );
+
+        if (!updatedDog) {
+            return res.status(404).json({ message: `Dog with ID ${req.params.id} not found` });
+        }
+
+        // Send the updated dog document in the response
+        res.status(200).json(updatedDog);
     } catch (err) {
-      // Handle errors
-      res.status(500).json({ error: `${err}: Update for ID ${req.params.id} failed` });
+        // Handle errors
+        res.status(500).json({ error: `${err}: Update for ID ${req.params.id} failed` });
     }
-  };
+};
+
   
 
 // VIEWS
