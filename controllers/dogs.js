@@ -19,23 +19,29 @@ exports.dogs_list = async function(req, res) {
 const Dogs = require('../models/dogs');
 
 // Controller function for handling GET request for one dog
-exports.dogs_detail = async function(req, res) {
-    console.log("detail" + req.params.id);
-    try {
-        const result = await Dogs.findById(req.params.id);
 
-        if (!result) {
+// Controller function for handling GET request for one dog
+exports.dogs_detail = async function(req, res) {
+    try {
+        // Convert the string representation of the ObjectId to an actual ObjectId
+        const dogId = mongoose.Types.ObjectId(req.params.id);
+
+        // Retrieve the dog details from the database
+        const dog = await Dogs.findById(dogId);
+
+        if (!dog) {
             // If the dog with the specified ID is not found
             res.status(404).json({ message: `Dog with ID ${req.params.id} not found` });
         } else {
             // If the dog is found, send the details in the response
-            res.status(200).json(result);
+            res.status(200).json(dog);
         }
     } catch (error) {
         // Handle any errors that occur during the process
         res.status(500).json({ error: `Error retrieving dog with ID ${req.params.id}` });
     }
 };
+
 
 // Handle Costume create on POST.
 // exports.costume_create_post = function(req, res) {
