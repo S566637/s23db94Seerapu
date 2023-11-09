@@ -69,32 +69,25 @@ exports.dogs_delete = async function(req, res) {
 // Handle Costume update form on PUT
 // Handle Dog update form on PUT.
 // Handle Dog update form on PUT
-exports.dogs_update_put = async function (req, res) {
-    console.log(`Update on ID ${req.params.id} with body ${JSON.stringify(req.body)}`);
+exports.dogs_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
     try {
-        // Find the dog by ID and update its properties
-        let updatedDog = await dogs.findByIdAndUpdate(
-            req.params.id,
-            {
-                dogs_type: req.body.dogs_type,
-                size: req.body.size,
-                cost: req.body.cost,
-                sale: req.body.checkboxsale, // Assuming checkboxsale is a boolean
-            },
-            { new: true } // This option ensures that the updated document is returned
-        );
-
-        if (!updatedDog) {
-            return res.status(404).json({ message: `Dog with ID ${req.params.id} not found` });
-        }
-
-        // Send the updated dog document in the response
-        res.status(200).json(updatedDog);
+    let toUpdate = await dogs.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.dogs_type)
+    toUpdate.dogs_type = req.body.dogs_type;
+    if(req.body.cost) toUpdate.cost = req.body.cost;
+    if(req.body.size) toUpdate.size = req.body.size;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
     } catch (err) {
-        // Handle errors
-        res.status(500).json({ error: `${err}: Update for ID ${req.params.id} failed` });
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+    failed`);
     }
-};
+    };
 
   
 
