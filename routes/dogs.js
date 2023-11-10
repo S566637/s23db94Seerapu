@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dogs_controllers = require('../controllers/dogsControllers');
+const dogs_controllers = require('../controllers/dogsController');
 
 // Your other routes...
 
