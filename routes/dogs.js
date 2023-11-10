@@ -1,11 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const dogs_controller = require('../controllers/dogsControllers');
-
-// Your other routes...
-
-// GET request for one dog
-router.get('/dogs/:id', dogs_controller.dogs_detail);
-
+var express = require('express');
+const dogs_controller= require('../controllers/dogs');
+var router = express.Router();
+/* GET costumes */
+router.get('/dogs/:id', dogs_controller.dogs_detail );
 module.exports = router;
 
