@@ -1,4 +1,4 @@
-var dogs = require('../models/dogs');
+const dogs = require('../models/dogs');
 
 exports.dogs_list = async function (req, res) {
     res.send('NOT IMPLEMENTED: dogs list');
