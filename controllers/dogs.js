@@ -88,8 +88,8 @@ ${JSON.stringify(req.body)}`)
         // Do updates of properties
         if (req.body.dogs_type)
             toUpdate.dogs_type = req.body.dogs_type;
-        if (req.body.dogs_cost) toUpdate.dogs_cost = req.body.cost;
-        if (req.body.dogs_color) toUpdate.color = req.body.color;
+        if (req.body.size) toUpdate.size = req.body.size;
+        if (req.body.cost) toUpdate.cost = req.body.cost;
         let result = await toUpdate.save();
         console.log("Sucess " + result)
         res.send(result)
