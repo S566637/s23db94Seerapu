@@ -86,10 +86,10 @@ ${JSON.stringify(req.body)}`)
     try {
         let toUpdate = await dogs.findById(req.params.id)
         // Do updates of properties
-        if (req.body.dogs_model)
-            toUpdate.dogs_model = req.body.dogs_model;
-        if (req.body.dogs_year) toUpdate.dogs_year = req.body.dogs_year;
-        if (req.body.dogs_price) toUpdate.dogs_price = req.body.dogs_price;
+        if (req.body.dogs_type)
+            toUpdate.dogs_type = req.body.dogs_type;
+        if (req.body.dogs_cost) toUpdate.dogs_cost = req.body.cost;
+        if (req.body.dogs_color) toUpdate.color = req.body.color;
         let result = await toUpdate.save();
         console.log("Sucess " + result)
         res.send(result)
@@ -99,6 +99,7 @@ ${JSON.stringify(req.body)}`)
 failed`);
     }
 };
+
 
 
 
