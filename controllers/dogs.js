@@ -16,9 +16,9 @@ exports.dogs_delete = function (req, res) {
     res.send('NOT IMPLEMENTED: dogs delete DELETE ' + req.params.id);
 };
 // Handle dogs update form on PUT.
-exports.dogs_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: dogs update PUT' + req.params.id);
-};
+ exports.dogs_update_put = function (req, res) {
+     res.send('NOT IMPLEMENTED: dogs update PUT' + req.params.id);
+ };
 
 // List of all dogs
 exports.dogs_list = async function (req, res) {
