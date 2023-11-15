@@ -2,6 +2,9 @@ extends layout
 
 block content
   h1= title
+   if (toShow == null)
+    h2 No instance to delete
+   else
 
   - let dogsid = toShow._id
   - let dogs_dogs_type = toShow.dogs_type
