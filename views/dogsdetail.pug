@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+
+  - let dogsid = toShow._id
+  - let dogs_dogs_type = toShow.dogs_type
+  - let dogssize = toShow.size
+  - let dogscost= toShow.cost
+
+  div
+    div.row
+      div(class='dogsAttr mr-4') dogs ID is:
+      div #{dogsid}
+
+    div.row
+      div(class='dogsAttr mr-4')  dogs_type is:
+      div #{dogs_dogs_type}
+
+    div.row
+      div(class='dogsAttr mr-4') size is:
+      div #{dogssize}
+
+    div.row
+      div(class='dogsAttr mr-4') cost:
+      div #{dogscost}
