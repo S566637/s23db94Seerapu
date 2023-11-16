@@ -1,33 +1,45 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config();
-const connectionString = process.env.MONGO_CON;
-const mongoose = require('mongoose');
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+var bodyParser = require('body-parser');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dogsRouter = require('./routes/dogs');
-var chooseRouter = require('./routes/choose'); // Corrected the variable name here
-var boardRouter = require('./routes/board');
-var resourceRouter = require('./routes/resource');
-const dogs = require("./models/dogs");
+var gridbuildRouter = require('./routes/board');
+var chooseRouter = require('./routes/choose');
+var dogs = require("./models/dogs");
+var resourceRouter=require("./routes/resource")
+
 
 var app = express();
+
+const connectionString = process.env.MONGO_CON;
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+// Get the default connection
 var db = mongoose.connection;
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// Bind connection to error event
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function () {
   console.log("Connection to DB succeeded");
 });
 
+// View engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -36,26 +48,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dogs', dogsRouter);
-app.use('/choose', chooseRouter); // Corrected the route usage here
-app.use('/board', boardRouter);
-app.use('/resource', resourceRouter);
+app.use('/board', gridbuildRouter);
+app.use('/choose', chooseRouter);
+app.use('/resource',resourceRouter)
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-
 app.get('/dogs', (req, res) => {
   // Fetch dogs data from a database or a predefined list
   const dogs = [
@@ -92,8 +103,9 @@ async function recreateDB() {
     console.error(err);
   });
 }
-
 let reseed = true;
-if (reseed) { recreateDB(); }
+if (reseed) {
+  recreateDB();
+}
 
 module.exports = app;

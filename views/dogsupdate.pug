@@ -2,42 +2,45 @@ extends layout
 
 block content
   h1= title
-  - let dogsid = toShow._id
-  - let dogs_dogs_type = toShow.dogs_type
-  - let dogssize = toShow.size
-  - let dogscost = toShow.cost
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let dogsid = toShow._id
+    - let dogs_dogs_type = toShow.dogs_type
+    - let dogssize = toShow.size
+    - let dogscost = toShow.cost
 
-  div.row(class='mb-2')
-    div.mr-1 ID is
-    div #{dogsid}
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{dogsid}
 
-  - let actionid = "/resource/dogs/" + dogsid
-  form(id='dogsForm', action= actionid, method="PUT")
-    div.form-group
-      label.dogsAttr(for='dogs_type') dogs_type
-      input#dogs_type(type='text', name='dogs_type', value= dogs_type )
-    div.form-group
-      label.dogsAttr(for='size') size
-      input#size(type='text', name='size', value= size )
-    div.form-group
-      label.dogsAttr(for='cost') cost
-      input#cost(type='number', name='cost', value= cost )
-    input(type="submit")
+    - let actionid = "/resource/dogs/" + dogsid
+    form(id='dogsForm', action= actionid, method="PUT")
+      div.form-group
+        label.dogsAttr(for='dogs_type') dogs_type
+        input#dogs_type(type='text', name='dogs_type', value= dogs_type )
+      div.form-group
+        label.dogsAttr(for='size') size
+        input#size(type='text', name='size', value= size )
+      div.form-group
+        label.dogsAttr(for='cost') cost
+        input#cost(type='number', name='cost', value= cost )
+      input(type="submit")
 
-    script.
-      document.forms['dogsForm'].addEventListener('submit', (event) => {
-        event.preventDefault();
-        // TODO do something here to show user that the form is being submitted
-        fetch(event.target.action, {
-          method: 'PUT',
-          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-        }).then((resp) => {
-          return resp.json(); // or resp.text() or whatever the server sends
-        }).then((body) => {
-          alert("Update succeeded");
-          // TODO handle body
-        }).catch((error) => {
-          // TODO handle error
-          alert("Update failed " + error );
+      script.
+        document.forms['dogsForm'].addEventListener('submit', (event) => {
+          event.preventDefault();
+          // TODO do something here to show user that the form is being submitted
+          fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+          }).then((resp) => {
+            return resp.json(); // or resp.text() or whatever the server sends
+          }).then((body) => {
+            alert("Update succeeded");
+            // TODO handle body
+          }).catch((error) => {
+            // TODO handle error
+            alert("Update failed " + error );
+          });
         });
-      });
