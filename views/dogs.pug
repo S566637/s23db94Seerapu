@@ -1,17 +1,21 @@
 extends layout
 
 block content
-    div(class="container-fluid")
-    h1= title
-    - let results=[{breed:"Labrador",age:3,name:"Buddy"},{breed:"German Shepherd",age:2,name:"Max"},{breed:"dalmation",age:4,name:"puppy"}]
-    div(class="row")
-        each form,item in results
-            div(class="col-sm-2" onclick=`buy(${item})`) #{form.breed}
-            div(class="col-sm-2" onclick=`buy(${item})`) #{form.name}
-            div(class="col-sm-2" onclick=`buy(${item})`) #{form.age}
+  h1= title
+  - let dogs = results;
 
-    script.
-        function buy(itemNo)
-        {
-            alert(`You purchased Item ${itemNo+1}`)
-        }
+  div(class="container-fluid")
+      each dog in dogs
+        - let destination = `dispatch("/dogs/update?id=${dogs._id}")`
+        div(class="col-sm-2")
+          p dogsdogs_type: #{dogs.dogs_type}
+          p dogssize: $#{dogs.size}
+          p dogscost: #{dogs.cost}
+        button.btn.btn-sm.btn-primary.ml-1(onclick= destination) Update
+        br 
+        br
+
+  script.
+    function dispatch(path) {
+      window.location.href = path;
+    }
