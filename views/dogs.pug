@@ -6,11 +6,11 @@ block content
 
   div(class="container-fluid")
       each dog in dogs
-        - let destination = `dispatch("/dogs/update?id=${dogs._id}")`
+        - let destination = `dispatch("/dogs/update?id=${dog._id}")`
         div(class="col-sm-2")
-          p dogsdogs_type: #{dogs.dogs_type}
-          p dogssize: $#{dogs.size}
-          p dogscost: #{dogs.cost}
+          p dogsdogs_type: #{dog.dogs_type}
+          p dogssize: $#{dog.size}
+          p dogscost: #{dog.cost}
         button.btn.btn-sm.btn-primary.ml-1(onclick= destination) Update
         br 
         br
