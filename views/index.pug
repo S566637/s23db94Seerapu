@@ -1,20 +1,31 @@
-extends layout
+//- extends layout
 
-block content
-  h1= title
-  p I made the change over here #{title}
-  button(type="button",class="btn btn-secondary" onclick="goFaster()") Press Me 
-  div#faster Increase the Speed.
-  p Click below to view search results:
-    a(href='/dogs') Search Results
-  script.
-    var mph = 20;
-    var change = 1;
+//- block content
+//-   h1= title
+//-   p I made the change over here #{title}
+//-   button(type="button",class="btn btn-secondary" onclick="goFaster()") Press Me 
+//-   div#faster Increase the Speed.
+//-   p Click below to view search results:
+//-     a(href='/dogs') Search Results
+//-   script.
+//-     var mph = 20;
+//-     var change = 1;
 
-    function goFaster() {
-      console.log("hi");
-      mph += change;
-      change += 1;
-      document.getElementById('faster').innerText = `MPH ${mph} with change ${change}`;
-    }
+//-     function goFaster() {
+//-       console.log("hi");
+//-       mph += change;
+//-       change += 1;
+//-       document.getElementById('faster').innerText = `MPH ${mph} with change ${change}`;
+//-     }
     
+extends layout
+block content
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/dogs") Take me to Dogs page
+    br
+    a(href="/logout") Logout
