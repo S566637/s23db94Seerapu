@@ -3,17 +3,16 @@ extends layout
 block content
   h1= title
   - let dogs = results;
+  a(class="btn btn-dark" href="/dogs/create") Create
 
   div(class="container-fluid")
+    div(class="row m-1")
       each dog in dogs
         - let destination = `dispatch("/dogs/update?id=${dog._id}")`
-        div(class="col-sm-2")
-          p dogsdogs_type: #{dog.dogs_type}
-          p dogssize: $#{dog.size}
-          p dogscost: #{dog.cost} 
+        div(class="row-sm-2", class="m-1") dog #{dog.dogs_type}(#{dog.size}) is #{dog.cost}
         button.btn.btn-sm.btn-primary.ml-1(onclick= destination) Update
-        br 
-        br
+         a(class="btn btn-warning" href=`/dogs/delete?id=${result._id}`) Delete
+         a(class="btn btn-secondary" href=`/dogs/detail?id=${result._id}`) Details
 
   script.
     function dispatch(path) {
