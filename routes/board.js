@@ -6,6 +6,8 @@ router.get('/', function(req, res, next) {
     let query = req.query;
   console.log(`rows ${query.rows}`);
   console.log(`cols ${query.cols}`);
+  var rows=Number(query.rows);
+  var cols=Number(query.cols);
   res.render('board', { title: 'Board Display', query: query });
 });
 
