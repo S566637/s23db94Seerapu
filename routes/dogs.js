@@ -1,6 +1,14 @@
 var express = require('express');
 const dogs_controllers= require('../controllers/dogs');
 var router = express.Router();
+// A little function to check if we have an authorized user and continue on
+// redirect to login.
+const secured = (req, res, next) => {
+    if (req.user){
+    return next();
+    }
+    res.redirect("/login");
+    }
 /* GET dogs */
 router.get('/', dogs_controllers.dogs_view_all_Page );
 // GET request for one dogs.
