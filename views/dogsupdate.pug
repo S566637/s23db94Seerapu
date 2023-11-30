@@ -1,12 +1,12 @@
   extends layout
 
-  block content
-    h1= title
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
-    if (result == null)
-      h2 No instance to update details of the dogs 
-    else  
+block content
+  h1= title
+  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
 
+  if (result == null)
+    h2 No instance to update details of the dogs 
+  else  
     - let dogsid = toShow._id
     - let dogs_dogs_type = toShow.dogs_type
     - let dogssize = toShow.size
@@ -32,21 +32,20 @@
         input#cost(type='number', name='cost', value= cost )
       button.btn.btn-primary(type="submit") Update dogs
 
-
-      script.
-        document.forms['dogsForm'].addEventListener('submit', (event) => {
-          event.preventDefault();
-          // TODO do something here to show user that the form is being submitted
-          fetch(event.target.action, {
-            method: 'PUT',
-            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-          }).then((resp) => {
-            return resp.json(); // or resp.text() or whatever the server sends
-          }).then((body) => {
-            alert("Update succeeded");
-            // TODO handle body
-          }).catch((error) => {
-            // TODO handle error
-            alert("Update failed " + error );
-          });
+    script.
+      document.forms['dogsForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that the form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeeded");
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed " + error );
         });
+      });
