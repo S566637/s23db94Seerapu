@@ -1,25 +1,18 @@
-  extends layout
+extends layout
 
 block content
   h1= title
-  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
+  - let ldogsid = toShow._id
+  - let dogs_dogs_type = toShow.dogs_type
+  - let dogssize = toShow.size
+  - let dogscost = toShow.cost
 
-  if (result == null)
-    h2 No instance to update details of the dogs 
-  else  
-    - let dogsid = toShow._id
-    - let dogs_dogs_type = toShow.dogs_type
-    - let dogssize = toShow.size
-    - let dogscost = toShow.cost
 
-    div.row(class='mb-2 justify-content-center') 
-      div.col-md-6
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{dogsid}
 
-    div.row(class='mb-2')
-      div.mr-1 ID is
-      div #{dogsid}
-
-    - let actionid = "/resource/dogs/" + dogsid
+  - let actionid = "/resource/dogs/" + dogsid
     form(id='dogsForm', action= actionid, method="PUT")
       div.form-group
         label.dogsAttr(for='dogs_type') dogs_type
